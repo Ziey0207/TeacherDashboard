@@ -74,26 +74,6 @@ namespace TeacherDashboard
             base.WndProc(ref m);
         }
 
-        private void hopeTextBox1_Enter(object sender, EventArgs e)
-        {
-            if (txtID.Text == "Enter Faculty ID")
-            {
-                txtID.Text = "";
-            }
-        }
-
-        private void hopeTextBox1_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                txtID.Text = "Enter Faculty ID";
-            }
-        }
-
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (txtIDNumber.Text.Length == 11) 
