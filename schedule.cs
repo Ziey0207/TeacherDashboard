@@ -24,41 +24,38 @@ namespace TeacherDashboard
             teacherID = id;
         }
 
-        private void schedule_Load(object sender, EventArgs e)
-        {
-      
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             teacherdashboard teach = new teacherdashboard(teacherID);
             teach.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             user sr = new user(teacherID);
             sr.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Form1 frm = new Form1();
             frm.Show();
-
-            this.Close();
+            Application.Exit();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
 
         private void schedule_Load_1(object sender, EventArgs e)
@@ -77,92 +74,79 @@ namespace TeacherDashboard
 
             static_month = month;
             static_year = year;
+
+            DisplayCalendar();
+        }
+
+        private void DisplayCalendar()
+        {
+            // Clear existing controls
+            daycontainers.Controls.Clear();
+
             DateTime startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
 
+            // Add blank controls for days before the first of the month
             for (int i = 1; i < dayoftheweek; i++)
             {
                 UserControlBlank ucb = new UserControlBlank();
                 daycontainers.Controls.Add(ucb);
             }
 
+            // Add day controls for each day of the month
             for (int i = 1; i <= days; i++)
             {
-                DateTime currentDate = new DateTime(year, month, i);
-                UserControlDays ucd = new UserControlDays(teacherID, day, month, year);  // Ipasok ang eksaktong petsa
+                UserControlDays ucd = new UserControlDays(teacherID, i, month, year);
                 ucd.days(i);
                 daycontainers.Controls.Add(ucd);
             }
-
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            daycontainers.Controls.Clear();
-
             month++;
+
+            if (month > 12)
+            {
+                month = 1;
+                year++;
+            }
+
+            static_month = month;
+            static_year = year;
 
             String monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             lbdate.Text = monthname + " " + year;
 
-            DateTime startofthemonth = new DateTime(year, month, 1);
-            int days = DateTime.DaysInMonth(year, month);
-            int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
-
-            for (int i = 1; i < dayoftheweek; i++)
-            {
-                UserControlBlank ucb = new UserControlBlank();
-                daycontainers.Controls.Add(ucb);
-            }
-
-            for (int i = 1; i <= days; i++)
-            {
-                DateTime currentDate = new DateTime(year, month, i);
-                UserControlDays ucd = new UserControlDays(teacherID, day, month, year);  // Ipasok ang eksaktong petsa
-                ucd.days(i);
-                daycontainers.Controls.Add(ucd);
-            }
-
+            DisplayCalendar();
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            daycontainers.Controls.Clear();
-
             month--;
+
+            if (month < 1)
+            {
+                month = 12;
+                year--;
+            }
+
+            static_month = month;
+            static_year = year;
 
             String monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             lbdate.Text = monthname + " " + year;
 
-            DateTime startofthemonth = new DateTime(year, month, 1);
-            int days = DateTime.DaysInMonth(year, month);
-            int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
-
-            for (int i = 1; i < dayoftheweek; i++)
-            {
-                UserControlBlank ucb = new UserControlBlank();
-                daycontainers.Controls.Add(ucb);
-            }
-
-            for (int i = 1; i <= days; i++)
-            {
-                DateTime currentDate = new DateTime(year, month, i);
-                UserControlDays ucd = new UserControlDays(teacherID, day, month, year);  // Ipasok ang eksaktong petsa
-                ucd.days(i);
-                daycontainers.Controls.Add(ucd);
-            }
-
+            DisplayCalendar();
         }
     }
 }

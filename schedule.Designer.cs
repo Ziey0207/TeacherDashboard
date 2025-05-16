@@ -57,7 +57,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1003, 57);
+            this.panel1.Size = new System.Drawing.Size(1020, 57);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -134,7 +134,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(113, 724);
+            this.panel2.Size = new System.Drawing.Size(113, 692);
             this.panel2.TabIndex = 3;
             // 
             // button6
@@ -243,7 +243,7 @@
             // 
             this.daycontainers.Location = new System.Drawing.Point(166, 148);
             this.daycontainers.Name = "daycontainers";
-            this.daycontainers.Size = new System.Drawing.Size(821, 633);
+            this.daycontainers.Size = new System.Drawing.Size(838, 601);
             this.daycontainers.TabIndex = 27;
             // 
             // schedule
@@ -268,7 +268,6 @@
             this.Name = "schedule";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "schedule";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.schedule_Load_1);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

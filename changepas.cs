@@ -13,8 +13,9 @@ namespace TeacherDashboard
 {
     public partial class changepas : Form
     {
-        string connString = "server=localhost;database=school_management;uid=root;pwd=;";
+        private string connString = "server=localhost;database=school_management;uid=root;pwd=;";
         private string teacherID;
+
         public changepas(string id)
         {
             InitializeComponent();
@@ -52,7 +53,6 @@ namespace TeacherDashboard
 
         private void button2_Click(object sender, EventArgs e)
         {
-
             schedule sched = new schedule(teacherID);
             sched.Show();
             this.Close();
@@ -70,12 +70,6 @@ namespace TeacherDashboard
             if (string.IsNullOrWhiteSpace(txtNewId.Text))
             {
                 MessageBox.Show("Please enter a new ID before saving.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; 
-            }
-
-            if (txtNewId.Text.Length != 11)
-            {
-                MessageBox.Show("New ID must be exactly 5 characters long.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -85,7 +79,7 @@ namespace TeacherDashboard
                 {
                     conn.Open();
 
-                    string query = @"UPDATE faculty 
+                    string query = @"UPDATE faculty
                              SET id_no = @idno
                              WHERE id_no = @TeacherID";
 

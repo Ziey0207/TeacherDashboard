@@ -11,75 +11,18 @@ using MySql.Data.MySqlClient;
 
 namespace TeacherDashboard
 {
-
     public partial class Form1 : Form
     {
-        string connString = "server=localhost;database=school_management;uid=root;pwd=;";
+        private string connString = "server=localhost;database=school_management;uid=root;pwd=;";
+
         public Form1()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_NCHITTEST = 0x84;
-            const int HTCLIENT = 0x1;
-            const int HTCAPTION = 0x2;
-            const int HTLEFT = 10;
-            const int HTRIGHT = 11;
-            const int HTTOP = 12;
-            const int HTTOPLEFT = 13;
-            const int HTTOPRIGHT = 14;
-            const int HTBOTTOM = 15;
-            const int HTBOTTOMLEFT = 16;
-            const int HTBOTTOMRIGHT = 17;
-
-            if (m.Msg == WM_NCHITTEST)
-            {
-                base.WndProc(ref m);
-                Point pos = PointToClient(new Point(m.LParam.ToInt32()));
-                if (pos.X < 5)
-                {
-                    if (pos.Y < 5)
-                        m.Result = (IntPtr)HTTOPLEFT;
-                    else if (pos.Y > ClientSize.Height - 5)
-                        m.Result = (IntPtr)HTBOTTOMLEFT;
-                    else
-                        m.Result = (IntPtr)HTLEFT;
-                }
-                else if (pos.X > ClientSize.Width - 5)
-                {
-                    if (pos.Y < 5)
-                        m.Result = (IntPtr)HTTOPRIGHT;
-                    else if (pos.Y > ClientSize.Height - 5)
-                        m.Result = (IntPtr)HTBOTTOMRIGHT;
-                    else
-                        m.Result = (IntPtr)HTRIGHT;
-                }
-                else if (pos.Y < 5)
-                {
-                    m.Result = (IntPtr)HTTOP;
-                }
-                else if (pos.Y > ClientSize.Height - 5)
-                {
-                    m.Result = (IntPtr)HTBOTTOM;
-                }
-                else
-                {
-                    m.Result = (IntPtr)HTCAPTION;
-                }
-                return;
-            }
-            base.WndProc(ref m);
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (txtIDNumber.Text.Length == 11) 
-            {
-                CheckIDAndLogin();
-            }
         }
 
         private void CheckIDAndLogin()
@@ -121,11 +64,22 @@ namespace TeacherDashboard
             {
                 MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }   
+        }
 
-            private void textBox1_Leave(object sender, EventArgs e)
+        private void textBox1_Leave(object sender, EventArgs e)
         {
+        }
 
+        private void txtIDNumber_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void txtIDNumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CheckIDAndLogin();
+            }
         }
     }
 }

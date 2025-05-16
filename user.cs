@@ -13,15 +13,15 @@ namespace TeacherDashboard
 {
     public partial class user : Form
     {
-        string connString = "server=localhost;database=school_management;uid=root;pwd=;";
+        private string connString = "server=localhost;database=school_management;uid=root;pwd=;";
         private string teacherID;
+
         public user(string id)
         {
             InitializeComponent();
             teacherID = id;
             LoadProfile();
         }
-
 
         public static class SessionData
         {
@@ -63,21 +63,37 @@ namespace TeacherDashboard
         {
             changepas chg = new changepas(teacherID);
             chg.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             teacherdashboard teach = new teacherdashboard(teacherID);
             teach.Show();
-            this.Close();   
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            schedule sched = new schedule(teacherID); 
+            schedule sched = new schedule(teacherID);
             sched.Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form1 frm = new Form1();
+            frm.Show();
+            Application.Exit();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -88,9 +104,9 @@ namespace TeacherDashboard
                 {
                     conn.Open();
 
-                    string query = @"UPDATE faculty 
-                             SET first_name = @FirstName, 
-                                 middle_name = @MiddleName, 
+                    string query = @"UPDATE faculty
+                             SET first_name = @FirstName,
+                                 middle_name = @MiddleName,
                                  last_name = @LastName,
                                  email = @Email,
                                  contact_number = @ContactNumber,
@@ -125,14 +141,6 @@ namespace TeacherDashboard
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Form1 frm = new Form1();
-            frm.Show();
-
-            this.Close();
         }
     }
 }
